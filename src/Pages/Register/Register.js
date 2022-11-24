@@ -16,7 +16,7 @@ const Register = () => {
                         <label className="label">
                             <span className="label-text">Name</span>
                         </label>
-                        <input {...register("name")} type="email" placeholder="your email" className="input input-bordered w-full" />
+                        <input {...register("name")} type="text" placeholder="your name" className="input input-bordered w-full" />
                     </div>
                     <div className="form-control w-full">
                         <label className="label">
@@ -30,16 +30,18 @@ const Register = () => {
                         </label>
                         <input {...register("password")} type="password" placeholder="your password" className="input input-bordered w-full" />
                     </div>
-                    {/* <select {...register("gender")}>
-                <option value="female">female</option>
-                <option value="male">male</option>
-                <option value="other">other</option>
-            </select> */}
-                    <input className='btn btn-primary mt-4 w-full' type="submit" value={'Login'} />
+                    <div className="form-control w-full">
+                        <label className="label">
+                            <span className="label-text">Select your role</span>
+                        </label>
+                        <select {...register("role")} className="select select-bordered">
+                            <option value="buyer">Buyer</option>
+                            <option value="seller">Seller</option>
+                        </select>
+                    </div>
+                    <input className='btn btn-primary mt-4 w-full' type="submit" value={'Register'} />
                 </form>
-                <p className='text-sm text-center'>New to Guitar Square? <Link to='/register' className='text-primary hover:underline hover:text-secondary'>Create new Account</Link></p>
-                <div className="divider">OR</div>
-                <button className="btn btn-outline btn-success w-full">Continue With Google</button>
+                <p className='text-sm text-center'>Already have an account? <Link to='/login' className='text-primary hover:underline hover:text-secondary'>Then Login</Link></p>
             </div>
         </div>
     );
