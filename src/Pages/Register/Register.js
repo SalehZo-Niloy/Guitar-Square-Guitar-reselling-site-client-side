@@ -1,12 +1,74 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
 
 const Register = () => {
-    const { register, handleSubmit } = useForm();
-    const handleRegister = (data) => {
+    const { signup, profileUpdater } = useContext(AuthContext);
+    const [registerError, setRegisterError] = useState('');
+
+    const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm();
+    const handleRegister = (data, e) => {
         console.log(data);
-    }
+        const { name, email, password, role } = data;
+        signup(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                const userInfo = {
+                    displayName: name
+                }
+                profileUpdater(userInfo)
+                    .then(() => {
+                        setRegisterError('');
+                        e.target.reset();
+                        toast.success('Registration Successful')
+                        const userInfo = {
+                            name,
+                            email,
+                            role,
+                            isVerified: false
+                        }
+                        addUser(userInfo);
+                    })
+                    .catch(e => {
+                        console.error(e);
+                        setRegisterError(e.message);
+                    })
+
+            })
+            .catch(e => {
+                console.error(e);
+                setRegisterError(e.message);
+            })
+    };
+
+    useEffect(() => {
+        reset({
+            name: '',
+            email: '',
+            password: ''
+        })
+    }, [isSubmitSuccessful, reset])
+
+    const addUser = (userInfo) => {
+        fetch('http://localhost:5000/user', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(userInfo)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(e => {
+                console.error(e);
+            })
+    };
+
     return (
         <div className='w-full min-h-[80vh] flex flex-col justify-center items-center'>
             <div className='w-10/12 md:w-2/3 lg:w-1/3 my-8'>
@@ -16,29 +78,34 @@ const Register = () => {
                         <label className="label">
                             <span className="label-text">Name</span>
                         </label>
-                        <input {...register("name")} type="text" placeholder="your name" className="input input-bordered w-full" />
+                        <input {...register("name", { required: true })} type="text" placeholder="your name" className="input input-bordered w-full" />
                     </div>
+                    {errors.name && errors.name.type === "required" && <p className='mt-2 text-error'>⚠ Name is required</p>}
                     <div className="form-control w-full">
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
-                        <input {...register("email")} type="email" placeholder="your email" className="input input-bordered w-full" />
+                        <input {...register("email", { required: true })} type="email" placeholder="your email" className="input input-bordered w-full" />
                     </div>
+                    {errors.email && errors.email.type === "required" && <p className='mt-2 text-error'>⚠ Email is required</p>}
                     <div className="form-control w-full">
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input {...register("password")} type="password" placeholder="your password" className="input input-bordered w-full" />
+                        <input {...register("password", { required: true })} type="password" placeholder="your password" className="input input-bordered w-full" />
                     </div>
+                    {errors.password && errors.password.type === "required" && <p className='mt-2 text-error'>⚠ Password is required</p>}
                     <div className="form-control w-full">
                         <label className="label">
                             <span className="label-text">Select your role</span>
                         </label>
-                        <select {...register("role")} className="select select-bordered">
+                        <select {...register("role", { required: true })} className="select select-bordered">
                             <option value="buyer">Buyer</option>
                             <option value="seller">Seller</option>
                         </select>
                     </div>
+                    {errors.role && errors.role.type === "required" && <p className='mt-2 text-error'>⚠ User Role is required</p>}
+                    {registerError && <p className='mt-3 text-error'>{registerError}</p>}
                     <input className='btn btn-primary mt-4 w-full' type="submit" value={'Register'} />
                 </form>
                 <p className='text-sm text-center'>Already have an account? <Link to='/login' className='text-primary hover:underline hover:text-secondary'>Then Login</Link></p>
