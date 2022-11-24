@@ -1,12 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 
 const Register = () => {
     const { signup, profileUpdater } = useContext(AuthContext);
     const [registerError, setRegisterError] = useState('');
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const from = location?.state?.from?.pathname || '/'
 
     const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm();
     const handleRegister = (data, e) => {
@@ -31,6 +35,7 @@ const Register = () => {
                             isVerified: false
                         }
                         addUser(userInfo);
+                        navigate(from, { replace: true });
                     })
                     .catch(e => {
                         console.error(e);

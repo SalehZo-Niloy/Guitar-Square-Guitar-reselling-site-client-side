@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider';
 
 const Header = () => {
-    const { user, logout } = useContext(AuthContext);
+    const { user, logout, dashboard } = useContext(AuthContext);
 
     const handleLogout = () => {
         logout()
@@ -17,6 +17,9 @@ const Header = () => {
 
     const menu = <>
         <li className='text-secondary'><Link to='/home' className='text-lg font-semibold'>Home</Link></li>
+        {
+            user?.email && <li className='text-secondary'><Link to='/dashboard' className='text-lg font-semibold'>Dashboard</Link></li>
+        }
         {
             user?.uid ? <li onClick={handleLogout} className='text-secondary'><p className='text-lg font-semibold'>Log out</p></li>
                 :
@@ -46,6 +49,11 @@ const Header = () => {
                     {menu}
                 </ul>
             </div>
+            {
+                user?.email && dashboard && <div className='flex justify-end items-center w-2/5 lg:hidden'>
+                    <label htmlFor="dashboard-drawer" className="text-secondary font-semibold ">Dashboard Menu</label>
+                </div>
+            }
         </div>
     );
 };

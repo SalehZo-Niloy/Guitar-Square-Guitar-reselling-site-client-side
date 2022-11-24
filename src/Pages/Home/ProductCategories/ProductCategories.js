@@ -11,7 +11,7 @@ const ProductCategories = () => {
     useEffect(() => {
         axios('http://localhost:5000/categories')
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setCategories(res.data);
                 setLoading(false);
             })

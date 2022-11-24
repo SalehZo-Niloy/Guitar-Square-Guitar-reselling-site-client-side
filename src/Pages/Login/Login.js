@@ -1,13 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 
 const Login = () => {
     const { login, googleLogin } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm();
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const from = location?.state?.from?.pathname || '/';
+    const previousLocation = location?.state?.from;
+
     const handleLogin = (data, e) => {
         console.log(data);
         const { email, password } = data;
@@ -18,6 +24,7 @@ const Login = () => {
                 setLoginError('');
                 e.target.reset();
                 toast.success('Login Successful');
+                navigate(from, { replace: true });
             })
             .catch(e => {
                 console.error(e);
@@ -98,7 +105,7 @@ const Login = () => {
                     {loginError && <p className='mt-3 text-error'>{loginError}</p>}
                     <input className='btn btn-primary mt-4 w-full' type="submit" value={'Login'} />
                 </form>
-                <p className='text-sm text-center'>New to Guitar Square? <Link to='/register' className='text-primary hover:underline hover:text-secondary'>Create new Account</Link></p>
+                <p className='text-sm text-center'>New to Guitar Square? <Link to='/register' state={{ from: previousLocation }} replace className='text-primary hover:underline hover:text-secondary'>Create new Account</Link></p>
                 <div className="divider">OR</div>
                 <button onClick={handleGoogleLogin} className="btn btn-outline btn-success w-full">Continue With Google</button>
             </div>
