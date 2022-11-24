@@ -5,6 +5,7 @@ const Header = () => {
 
     const menu = <>
         <li className='text-secondary'><Link to='/home' className='text-lg font-semibold'>Home</Link></li>
+        <li className='text-secondary'><Link to='/login' className='text-lg font-semibold'>Login</Link></li>
 
     </>
 
@@ -21,7 +22,7 @@ const Header = () => {
                 </div>
                 <Link to='/' className="uppercase text-base md:text-xl lg:text-2xl text-primary font-bold w-full">Guitar Square</Link>
             </div>
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-center hidden lg:flex justify-end w-2/5">
                 <ul className="menu menu-horizontal p-0">
                     {menu}
                 </ul>
