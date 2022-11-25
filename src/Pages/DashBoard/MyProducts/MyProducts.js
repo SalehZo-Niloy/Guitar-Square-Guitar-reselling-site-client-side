@@ -28,6 +28,43 @@ const MyProducts = () => {
             })
     }
 
+    const handleAdvertise = (id, state) => {
+        fetch(`http://localhost:5000/advertise/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ state })
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data);
+                if (data.modifiedCount > 0) {
+                    refetch();
+                }
+            })
+            .catch(e => {
+                console.error(e);
+            })
+    }
+    // const handleRemoveAdvertise = (id) => {
+    //     fetch(`http://localhost:5000/advertise/${id}`, {
+    //         method: 'PATCH',
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data);
+    //             if (data.modifiedCount > 0) {
+    //                 refetch();
+    //             }
+    //         })
+    //         .catch(e => {
+    //             console.error(e);
+    //         })
+    // }
+
+
+
     if (isLoading) {
         return <Loading></Loading>
     }
@@ -41,6 +78,8 @@ const MyProducts = () => {
                         key={product?._id}
                         product={product}
                         handleDelete={handleDelete}
+                        handleAdvertise={handleAdvertise}
+                    // handleRemoveAdvertise={handleRemoveAdvertise}
                     ></MyProductCard>)
                 }
             </div>

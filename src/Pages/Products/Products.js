@@ -22,7 +22,7 @@ const Products = () => {
     return (
         <div>
             <h1 className='text-2xl font-semibold text-primary text-center mt-12'>Second Hand {products[0]?.categoryName}</h1>
-            <div className='w-11/12 mx-auto my-8 grid grid-cols-3'>
+            <div className='w-11/12 mx-auto my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
                 {
                     products?.length && products?.map(product => <ProductCard
                         key={product._id}

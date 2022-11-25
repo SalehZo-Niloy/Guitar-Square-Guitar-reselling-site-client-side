@@ -32,7 +32,7 @@ const ProductCard = ({ product }) => {
     // console.log(sellerEmail);
 
     return (
-        <div className="card w-96 bg-neutral shadow-xl">
+        <div className="card bg-neutral shadow-xl">
             <figure className="px-10 pt-10">
                 <img src={productPhoto} alt="" className="rounded-xl" />
             </figure>
