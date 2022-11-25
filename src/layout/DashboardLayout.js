@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
 import useRole from '../hooks/useRole';
 import Footer from '../Pages/Shared/Footer/Footer';
@@ -31,10 +31,10 @@ const DashboardLayout = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 bg-base-300 text-base-content">
+                    <ul className="menu p-4 w-80 bg-base-300 text-base-content gap-2">
                         {
                             role === 'seller' && <>   <li><Link to='/dashboard/addProduct' className='text-secondary font-semibold'>Add Product</Link></li>
-                                <li><a>Sidebar Item 2</a></li>
+                                <li><Link to='/dashboard/myProducts' className='text-secondary font-semibold'>My Products</Link></li>
                             </>
                         }
                     </ul>

@@ -1,17 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../context/AuthProvider';
 
 const AddProduct = () => {
     const { user } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm();
     const [uploaded, setUploaded] = useState(false);
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const imgbb = process.env.REACT_APP_imgbb_key;
 
     const handleAddProduct = (data, e) => {
-        console.log(data);
+        setLoading(true);
+        // console.log(data);
         const { productName, productPhoto, location, category, condition, resalePrice, originalPrice, phone, description, purchaseYear, } = data;
         fetch(`http://localhost:5000/categories?category=${category}`)
             .then(res => res.json())
@@ -60,6 +64,8 @@ const AddProduct = () => {
                                     console.log(data);
                                     setUploaded(!uploaded);
                                     toast.success('Product added Successfully');
+                                    setLoading(false);
+                                    navigate('/dashboard/myProducts')
                                 })
                                 .catch(e => {
                                     console.error(e);
@@ -90,6 +96,12 @@ const AddProduct = () => {
             purchaseYear: '',
         })
     }, [uploaded])
+
+    if (loading) {
+        return <div className='flex justify-center items-center w-full my-12'>
+            <progress className="progress progress-primary w-56"></progress>
+        </div>
+    }
 
 
     return (
