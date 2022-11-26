@@ -2,14 +2,17 @@ import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
 import AddProduct from "../Pages/DashBoard/AddProduct/AddProduct";
+import Buyers from "../Pages/DashBoard/Buyers/Buyers";
 import DashBoard from "../Pages/DashBoard/DashBoard/DashBoard";
 import MyOrders from "../Pages/DashBoard/MyOrders/MyOrders";
 import MyProducts from "../Pages/DashBoard/MyProducts/MyProducts";
+import Sellers from "../Pages/DashBoard/Sellers/Sellers";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
 import Payment from "../Pages/Payment/Payment";
 import Products from "../Pages/Products/Products";
 import Register from "../Pages/Register/Register";
+import AdminRoute from "./AdminRoute/AdminRoute";
 import BuyerRoute from "./BuyerRoute/BuyerRoute";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import SellerRoute from "./SellerRoute/SellerRoute";
@@ -51,6 +54,12 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/payment/:id', element: <BuyerRoute><Payment></Payment></BuyerRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`)
+            },
+            {
+                path: '/dashboard/sellers', element: <AdminRoute><Sellers></Sellers></AdminRoute>
+            },
+            {
+                path: '/dashboard/buyers', element: <AdminRoute><Buyers></Buyers></AdminRoute>
             },
         ]
     }

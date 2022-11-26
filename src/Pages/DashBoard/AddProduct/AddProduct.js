@@ -98,7 +98,7 @@ const AddProduct = () => {
     }, [uploaded])
 
     if (loading) {
-        return <div className='flex justify-center items-center w-full my-12'>
+        return <div className='flex justify-center items-center w-full my-12 min-h-[90vh]'>
             <progress className="progress progress-primary w-56"></progress>
         </div>
     }

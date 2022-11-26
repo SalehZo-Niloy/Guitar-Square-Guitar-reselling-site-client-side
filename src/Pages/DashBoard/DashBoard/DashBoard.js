@@ -17,6 +17,9 @@ const DashBoard = () => {
     if (role === 'buyer') {
         return <Navigate to='/dashboard/myOrders'></Navigate>
     }
+    if (role === 'admin') {
+        return <Navigate to='/dashboard/sellers'></Navigate>
+    }
     return (
         <div>
             this is dashboard

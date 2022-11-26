@@ -16,36 +16,49 @@ const Register = () => {
     const handleRegister = (data, e) => {
         // console.log(data);
         const { name, email, password, role } = data;
-        signup(email, password)
-            .then(result => {
-                const user = result.user;
-                // console.log(user);
-                const userInfo = {
-                    displayName: name
-                }
-                profileUpdater(userInfo)
-                    .then(() => {
-                        setRegisterError('');
-                        e.target.reset();
-                        toast.success('Registration Successful')
-                        const userInfo = {
-                            name,
-                            email: email.toLowerCase(),
-                            role,
-                            isVerified: false
-                        }
-                        addUser(userInfo);
-                        navigate(from, { replace: true });
-                    })
-                    .catch(e => {
-                        console.error(e);
-                        setRegisterError(e.message);
-                    })
+        fetch(`http://localhost:5000/user?email=${email}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (!data.isDeleted) {
+                    signup(email, password)
+                        .then(result => {
+                            const user = result.user;
+                            // console.log(user);
+                            const userInfo = {
+                                displayName: name
+                            }
+                            profileUpdater(userInfo)
+                                .then(() => {
+                                    setRegisterError('');
+                                    e.target.reset();
+                                    toast.success('Registration Successful')
+                                    const userInfo = {
+                                        name,
+                                        email: email.toLowerCase(),
+                                        role,
+                                        isVerified: false
+                                    }
+                                    addUser(userInfo);
+                                    navigate(from, { replace: true });
+                                })
+                                .catch(e => {
+                                    console.error(e);
+                                    setRegisterError(e.message);
+                                })
 
+                        })
+                        .catch(e => {
+                            console.error(e);
+                            setRegisterError(e.message);
+                        })
+                }
+                else {
+                    toast.error('Your account has been deleted');
+                }
             })
             .catch(e => {
                 console.error(e);
-                setRegisterError(e.message);
             })
     };
 

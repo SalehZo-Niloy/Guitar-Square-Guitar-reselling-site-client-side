@@ -66,13 +66,14 @@ const MyProducts = () => {
             <h1 className='text-2xl font-semibold text-primary text-center'>My Products</h1>
             <div className='flex flex-col gap-4 my-8'>
                 {
-                    myProducts?.length && myProducts?.map(product => <MyProductCard
+                    myProducts?.length ? myProducts?.map(product => <MyProductCard
                         key={product?._id}
                         product={product}
                         handleDelete={handleDelete}
                         handleAdvertise={handleAdvertise}
                     // handleRemoveAdvertise={handleRemoveAdvertise}
                     ></MyProductCard>)
+                        : undefined
                 }
             </div>
         </div>

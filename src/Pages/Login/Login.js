@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 
 const Login = () => {
-    const { login, googleLogin } = useContext(AuthContext);
+    const { login, googleLogin, logout } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm();
     const location = useLocation();
@@ -17,18 +17,31 @@ const Login = () => {
     const handleLogin = (data, e) => {
         // console.log(data);
         const { email, password } = data;
-        login(email, password)
-            .then(result => {
-                const user = result.user;
-                // console.log(user);
-                setLoginError('');
-                e.target.reset();
-                toast.success('Login Successful');
-                navigate(from, { replace: true });
+        fetch(`http://localhost:5000/user?email=${email}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (!data.isDeleted) {
+                    login(email, password)
+                        .then(result => {
+                            const user = result.user;
+                            // console.log(user);
+                            setLoginError('');
+                            e.target.reset();
+                            toast.success('Login Successful');
+                            navigate(from, { replace: true });
+                        })
+                        .catch(e => {
+                            console.error(e);
+                            setLoginError(e.message);
+                        })
+                }
+                else {
+                    toast.error('Your account has been deleted');
+                }
             })
             .catch(e => {
                 console.error(e);
-                setLoginError(e.message);
             })
     };
 
@@ -44,16 +57,30 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 // console.log(user);
-                setLoginError('')
-                toast.success('Login By Google Successful');
-                const userInfo = {
-                    name: user?.displayName,
-                    email: user?.email,
-                    role: 'buyer',
-                    isVerified: false
-                }
-                navigate(from, { replace: true });
-                addUser(userInfo);
+                fetch(`http://localhost:5000/user?email=${user?.email}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (!data.isDeleted) {
+                            setLoginError('')
+                            toast.success('Login By Google Successful');
+                            const userInfo = {
+                                name: user?.displayName,
+                                email: user?.email,
+                                role: 'buyer',
+                                isVerified: false
+                            }
+                            navigate(from, { replace: true });
+                            addUser(userInfo);
+                        }
+                        else {
+                            logout();
+                            toast.error('Your account has been deleted');
+                        }
+                    })
+                    .catch(e => {
+                        console.error(e);
+                    })
             })
             .catch(e => {
                 console.error(e);

@@ -41,7 +41,7 @@ const ProductBookingModal = ({ productModal, setProductModal }) => {
         // console.log(booking);
     }
 
-    console.log(user);
+    // console.log(user);
 
     return (
         <div>

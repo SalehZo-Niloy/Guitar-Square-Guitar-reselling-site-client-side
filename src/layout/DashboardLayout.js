@@ -41,6 +41,11 @@ const DashboardLayout = () => {
                             role === 'buyer' && <>   <li><Link to='/dashboard/myOrders' className='text-secondary font-semibold'>My Orders</Link></li>
                             </>
                         }
+                        {
+                            role === 'admin' && <>   <li><Link to='/dashboard/sellers' className='text-secondary font-semibold'>Sellers</Link></li>
+                                <li><Link to='/dashboard/buyers' className='text-secondary font-semibold'>Buyers</Link></li>
+                            </>
+                        }
                     </ul>
                 </div>
             </div>

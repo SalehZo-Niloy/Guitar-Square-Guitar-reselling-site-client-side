@@ -9,7 +9,7 @@ const stripePromise = loadStripe(process.env.REACT_APP_stripe_pk);
 
 const Payment = () => {
     const product = useLoaderData();
-    console.log(product);
+    // console.log(product);
     return (
         <div className='w-11/12 mx-auto my-8'>
             <h1 className='text-2xl font-semibold text-secondary text-center'>Pay for {product?.productName}</h1>

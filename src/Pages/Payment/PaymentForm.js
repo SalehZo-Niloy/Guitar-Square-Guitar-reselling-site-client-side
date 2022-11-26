@@ -1,5 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthProvider';
 
 const PaymentForm = ({ product }) => {
@@ -50,7 +51,7 @@ const PaymentForm = ({ product }) => {
         });
 
         if (error) {
-            console.log(error.message);
+            console.error(error.message);
             setCardError(error.message);
         }
         else {
@@ -100,11 +101,12 @@ const PaymentForm = ({ product }) => {
                     console.log(data);
                     if (data.insertedId) {
                         setSuccess('Congratulations! your payment done');
+                        toast.success('Congratulations! your payment done');
                         setTransactionId(paymentIntent.id);
                     }
                 })
                 .catch(e => {
-                    console.log(e);
+                    console.error(e);
                 })
         }
 
@@ -142,7 +144,6 @@ const PaymentForm = ({ product }) => {
             <p className='mt-4 text-neutral font-bold'>{cardError ? cardError : undefined}</p>
             {
                 success && <div>
-                    <p className='text-neutral font-bold'>{success}</p>
                     <p className='text-black text-xl font-bold'>Your Transaction Id: {transactionId}</p>
                 </div>
             }
