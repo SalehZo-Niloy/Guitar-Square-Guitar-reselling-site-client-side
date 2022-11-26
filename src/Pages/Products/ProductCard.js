@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import useRole from '../../hooks/useRole';
 import Loading from '../Shared/Loading/Loading';
 
-const ProductCard = ({ product }) => {
-    const { productName, productPhoto, location, resalePrice, originalPrice, purchaseYear, postedAt, sellerEmail } = product;
+const ProductCard = ({ product, setProductModal, role }) => {
+    const { _id, productName, productPhoto, location, resalePrice, originalPrice, purchaseYear, postedAt, sellerEmail } = product;
 
     const { data: seller = {}, isLoading } = useQuery({
         queryKey: ['user', sellerEmail],
@@ -11,12 +13,12 @@ const ProductCard = ({ product }) => {
             .then(res => res.json())
     })
 
-    // fetch(`http://localhost:5000/user?email=${sellerEmail}`)
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         setSellerName(data.name)
-    //         setSellerVerified(data.isVerified);
-    //     })
+    const handleModalLoad = () => {
+        if (role !== 'buyer') {
+            return toast.error("You can't book the product as you are not a 'BUYER'!!");
+        }
+        setProductModal({ _id, productName, resalePrice })
+    }
 
     const date = purchaseYear.split('-')[2];
     const month = purchaseYear.split('-')[1];
@@ -29,7 +31,7 @@ const ProductCard = ({ product }) => {
         return <Loading></Loading>
     }
 
-    // console.log(sellerEmail);
+    // console.log(product);
 
     return (
         <div className="card bg-neutral shadow-xl">
@@ -45,7 +47,7 @@ const ProductCard = ({ product }) => {
                 <p><strong>Product posted at:</strong> {formattedDate}</p>
                 <p><strong>Seller: </strong> {seller?.name} {seller?.isVerified && <span className="badge badge-accent badge-outline px-1">✔</span>}</p>
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Book Now</button>
+                    <label onClick={handleModalLoad} htmlFor="product-modal" className="btn btn-primary">Book Now</label>
                 </div>
             </div>
         </div >

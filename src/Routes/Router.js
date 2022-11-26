@@ -3,11 +3,14 @@ import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
 import AddProduct from "../Pages/DashBoard/AddProduct/AddProduct";
 import DashBoard from "../Pages/DashBoard/DashBoard/DashBoard";
+import MyOrders from "../Pages/DashBoard/MyOrders/MyOrders";
 import MyProducts from "../Pages/DashBoard/MyProducts/MyProducts";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
+import Payment from "../Pages/Payment/Payment";
 import Products from "../Pages/Products/Products";
 import Register from "../Pages/Register/Register";
+import BuyerRoute from "./BuyerRoute/BuyerRoute";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import SellerRoute from "./SellerRoute/SellerRoute";
 
@@ -41,6 +44,13 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/myProducts', element: <SellerRoute><MyProducts></MyProducts></SellerRoute>
+            },
+            {
+                path: '/dashboard/myOrders', element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>
+            },
+            {
+                path: '/dashboard/payment/:id', element: <BuyerRoute><Payment></Payment></BuyerRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`)
             },
         ]
     }

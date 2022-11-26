@@ -33,7 +33,7 @@ const AddProduct = () => {
                 })
                     .then(res => res.json())
                     .then(imgData => {
-                        console.log(imgData);
+                        // console.log(imgData);
                         if (imgData.success) {
                             const product = {
                                 productName,
@@ -61,7 +61,7 @@ const AddProduct = () => {
                             })
                                 .then(res => res.json())
                                 .then(data => {
-                                    console.log(data);
+                                    // console.log(data);
                                     setUploaded(!uploaded);
                                     toast.success('Product added Successfully');
                                     setLoading(false);
@@ -79,7 +79,7 @@ const AddProduct = () => {
                     })
             })
             .catch(e => {
-                console.log(e);
+                console.error(e);
                 toast.error('Could not add the product');
             })
     }
@@ -173,7 +173,7 @@ const AddProduct = () => {
                     <label className="label">
                         <span className="label-text">Your Phone Number</span>
                     </label>
-                    <input {...register("phone", { required: true })} type="number" className="input input-bordered w-full" />
+                    <input {...register("phone", { required: true })} type="text" className="input input-bordered w-full" />
                     {errors.phone && errors.phone.type === "required" && <p className='mt-2 text-error'>⚠ Phone Number is required</p>}
                 </div>
 

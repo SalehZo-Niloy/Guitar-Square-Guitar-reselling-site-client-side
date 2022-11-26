@@ -16,7 +16,7 @@ const ProductCategories = () => {
                 setLoading(false);
             })
             .catch(e => {
-                toast.error('Failed to load Categories');
+                toast.error('Failed to load Categories, please reload page');
                 setLoading(false);
                 console.error(e);
             })

@@ -14,12 +14,12 @@ const Register = () => {
 
     const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm();
     const handleRegister = (data, e) => {
-        console.log(data);
+        // console.log(data);
         const { name, email, password, role } = data;
         signup(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                // console.log(user);
                 const userInfo = {
                     displayName: name
                 }
@@ -30,7 +30,7 @@ const Register = () => {
                         toast.success('Registration Successful')
                         const userInfo = {
                             name,
-                            email,
+                            email: email.toLowerCase(),
                             role,
                             isVerified: false
                         }
@@ -67,7 +67,7 @@ const Register = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
             })
             .catch(e => {
                 console.error(e);

@@ -7,7 +7,7 @@ const MyProductCard = ({ product, handleDelete, handleAdvertise }) => {
             <div className="card-body">
                 <h2 className="card-title text-secondary">{productName}</h2>
                 <p className='text-white font-bold'>Price: ${resalePrice}</p>
-                <p className='text-white text-sm mb-2'>Product {isSold ? 'Sold' : 'Availble'}</p>
+                <p className='text-white text-sm mb-2'>Product <strong className='text-primary'>{isSold ? 'Sold' : 'Availble'}</strong></p>
                 <div className="card-actions justify-end">
                     {
                         !isSold && !isAdvertised &&

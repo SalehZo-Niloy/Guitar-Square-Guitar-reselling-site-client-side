@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../../context/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 import MyProductCard from './MyProductCard';
@@ -18,8 +19,9 @@ const MyProducts = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 if (data.deletedCount > 0) {
+                    toast.success('Product Deleted Successfully');
                     refetch();
                 }
             })
@@ -40,6 +42,12 @@ const MyProducts = () => {
             .then(data => {
                 // console.log(data);
                 if (data.modifiedCount > 0) {
+                    if (state) {
+                        toast.success('Product Advertised');
+                    }
+                    else {
+                        toast.error('Removed from Advertised');
+                    }
                     refetch();
                 }
             })
@@ -47,22 +55,6 @@ const MyProducts = () => {
                 console.error(e);
             })
     }
-    // const handleRemoveAdvertise = (id) => {
-    //     fetch(`http://localhost:5000/advertise/${id}`, {
-    //         method: 'PATCH',
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log(data);
-    //             if (data.modifiedCount > 0) {
-    //                 refetch();
-    //             }
-    //         })
-    //         .catch(e => {
-    //             console.error(e);
-    //         })
-    // }
-
 
 
     if (isLoading) {

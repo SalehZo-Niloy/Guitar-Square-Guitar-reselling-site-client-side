@@ -15,12 +15,12 @@ const Login = () => {
     const previousLocation = location?.state?.from;
 
     const handleLogin = (data, e) => {
-        console.log(data);
+        // console.log(data);
         const { email, password } = data;
         login(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                // console.log(user);
                 setLoginError('');
                 e.target.reset();
                 toast.success('Login Successful');
@@ -43,7 +43,7 @@ const Login = () => {
         googleLogin()
             .then(result => {
                 const user = result.user;
-                console.log(user);
+                // console.log(user);
                 setLoginError('')
                 toast.success('Login By Google Successful');
                 const userInfo = {
@@ -52,6 +52,7 @@ const Login = () => {
                     role: 'buyer',
                     isVerified: false
                 }
+                navigate(from, { replace: true });
                 addUser(userInfo);
             })
             .catch(e => {
@@ -71,7 +72,7 @@ const Login = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
             })
             .catch(e => {
                 console.error(e);
