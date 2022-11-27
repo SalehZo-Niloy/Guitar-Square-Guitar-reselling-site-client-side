@@ -8,7 +8,11 @@ const MyOrders = () => {
     const { user } = useContext(AuthContext);
     const { data: myOrders = [], isLoading, refetch } = useQuery({
         queryKey: ['myOrders', user],
-        queryFn: () => fetch(`http://localhost:5000/bookings?email=${user?.email}`)
+        queryFn: () => fetch(`http://localhost:5000/bookings?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(res => res.json())
     })
 

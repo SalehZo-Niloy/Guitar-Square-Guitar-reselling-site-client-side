@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
+import { jwtToken } from '../../utilities/jwtToken';
 
 const Login = () => {
     const { login, googleLogin, logout } = useContext(AuthContext);
@@ -17,7 +18,7 @@ const Login = () => {
     const handleLogin = (data, e) => {
         // console.log(data);
         const { email, password } = data;
-        fetch(`http://localhost:5000/user?email=${email}`)
+        fetch(`http://localhost:5000/user?email=${email.toLowerCase()}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -29,7 +30,7 @@ const Login = () => {
                             setLoginError('');
                             e.target.reset();
                             toast.success('Login Successful');
-                            navigate(from, { replace: true });
+                            jwtToken(user, navigate, from);
                         })
                         .catch(e => {
                             console.error(e);
@@ -70,8 +71,8 @@ const Login = () => {
                                 role: 'buyer',
                                 isVerified: false
                             }
-                            navigate(from, { replace: true });
                             addUser(userInfo);
+                            jwtToken(user, navigate, from);
                         }
                         else {
                             logout();

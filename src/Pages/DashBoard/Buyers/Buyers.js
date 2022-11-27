@@ -6,7 +6,11 @@ import BuyersCard from './BuyersCard';
 const Buyers = () => {
     const { data: buyers = [], isLoading, refetch } = useQuery({
         queryKey: ['buyers'],
-        queryFn: () => fetch(`http://localhost:5000/buyers`)
+        queryFn: () => fetch(`http://localhost:5000/buyers`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(res => res.json())
     })
 

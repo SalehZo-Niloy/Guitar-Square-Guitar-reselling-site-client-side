@@ -8,6 +8,9 @@ const SellersCard = ({ seller, refetch }) => {
         console.log(email);
         fetch(`http://localhost:5000/user?email=${email}`, {
             method: 'PATCH',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -25,6 +28,9 @@ const SellersCard = ({ seller, refetch }) => {
         console.log(email);
         fetch(`http://localhost:5000/user?email=${email}`, {
             method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then(res => res.json())
             .then(data => {

@@ -7,7 +7,11 @@ const Advertised = () => {
 
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['advertisedProducts'],
-        queryFn: () => fetch(`http://localhost:5000/advertise`)
+        queryFn: () => fetch(`http://localhost:5000/advertise`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(res => res.json())
     })
 

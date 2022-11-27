@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
+import { jwtToken } from '../../utilities/jwtToken';
 
 const Register = () => {
     const { signup, profileUpdater } = useContext(AuthContext);
@@ -35,7 +36,7 @@ const Register = () => {
                             isVerified: false
                         }
                         addUser(userInfo);
-                        navigate(from, { replace: true });
+                        jwtToken(user, navigate, from);
                     })
                     .catch(e => {
                         console.error(e);

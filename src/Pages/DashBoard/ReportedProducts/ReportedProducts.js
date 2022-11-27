@@ -6,7 +6,11 @@ import ReportedProductsCard from './ReportedProductsCard';
 const ReportedProducts = () => {
     const { data: reportedProducts = [], isLoading, refetch } = useQuery({
         queryKey: ['reportedProducts'],
-        queryFn: () => fetch(`http://localhost:5000/report`)
+        queryFn: () => fetch(`http://localhost:5000/report`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(res => res.json())
     })
 

@@ -16,7 +16,11 @@ const Products = () => {
 
     const { data: products = [], isLoading } = useQuery({
         queryKey: ['products', categoryId],
-        queryFn: () => fetch(`http://localhost:5000/products/${categoryId}`)
+        queryFn: () => fetch(`http://localhost:5000/products/${categoryId}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(res => res.json())
     })
 

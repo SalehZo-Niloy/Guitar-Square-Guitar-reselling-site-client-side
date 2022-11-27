@@ -9,13 +9,20 @@ const MyProducts = () => {
     const { user } = useContext(AuthContext);
     const { data: myProducts = [], isLoading, refetch } = useQuery({
         queryKey: ['myProducts', user],
-        queryFn: () => fetch(`http://localhost:5000/products?email=${user?.email}`)
+        queryFn: () => fetch(`http://localhost:5000/products?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(res => res.json())
     })
 
     const handleDelete = (id) => {
         fetch(`http://localhost:5000/products/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -34,7 +41,8 @@ const MyProducts = () => {
         fetch(`http://localhost:5000/advertise/${id}`, {
             method: 'PATCH',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify({ state })
         })

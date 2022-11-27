@@ -8,6 +8,9 @@ const BuyersCard = ({ buyer, refetch }) => {
         console.log(email);
         fetch(`http://localhost:5000/user?email=${email}`, {
             method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then(res => res.json())
             .then(data => {

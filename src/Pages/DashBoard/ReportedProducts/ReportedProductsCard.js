@@ -15,7 +15,10 @@ const ReportedProductsCard = ({ product, refetch }) => {
     const handleDelete = () => {
         console.log(productId);
         fetch(`http://localhost:5000/report/${productId}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
         })
             .then(res => res.json())
             .then(data => {

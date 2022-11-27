@@ -5,7 +5,11 @@ const useRole = email => {
     const [roleLoading, setRoleLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/user/role/${email}`)
+        fetch(`http://localhost:5000/user/role/${email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 // console.log(data);
