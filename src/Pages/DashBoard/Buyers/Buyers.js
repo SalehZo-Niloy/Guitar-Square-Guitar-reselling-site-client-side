@@ -10,7 +10,7 @@ const Buyers = () => {
             .then(res => res.json())
     })
 
-    console.log(buyers);
+    // console.log(buyers);
 
     if (isLoading) {
         return <Loading></Loading>
