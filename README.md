@@ -1,71 +1,44 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 # b612-used-products-resale-clients-side-SalehZo-Niloy
+## Project: `Guitar Square - A Guitar Reselling Site`
+
+### Live Site Link:
+[https://guitar-square.web.app/](https://guitar-square.web.app/)
+
+### Admin Credentials
+
+adminEmail: admin@gmail.com
+
+adminPassword: 123456
+
+### `Features and functionalities of this Project:`
+- This is a second-hand guitar reselling site, in home page you will find,
+
+    - Categories of guitar. By clicking the view products you can see the guitars available for sell under that category. But you need to log in for that.
+
+    - There is a section for product that has been advertised by the seller.
+    - You can also send feedbacks to us through the feed back section.
+
+- Login as a buyer,
+     - You can book the products, also buy the guitar by completing payment
+     - In Dashboard you will find my orders, where you can see the products booked by you.
+
+- Login as a seller,
+
+    - You can add products for sell in dashboards add product route.
+    - Can see all the products added by you in the My products route, can advertise any product from there or even delete the product. You can see products sales status.
+   
+- Login as a admin,
+
+    - If you have admin access in Dashboard you can go to Sellers and Buyers route where you can see all the sellers and buyers, can verify sellers, or delete any seller or buyer
+
+    - If any seller or buyer is deleted, they can not login again to the site, seller's all products would be deleted too.
+
+    - In reported item route admin will see the products that has been reported. Those product can be deleted by him.
+
+- Blog
+
+    - There are some Web Development related questions which are answered in the Blog page. 
+- Login
+
+    - Here you can login with email and password, for that you need to register first.
+    - Google login is also available

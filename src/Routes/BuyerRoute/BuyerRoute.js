@@ -9,6 +9,9 @@ const BuyerRoute = ({ children }) => {
     const [role, roleLoading] = useRole(user?.email);
     const location = useLocation();
 
+    //----------------------------
+    // only accessed by buyer, or will be redirected to login page
+    //----------------------------
     if (roleLoading) {
         return <Loading></Loading>
     }

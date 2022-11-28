@@ -10,6 +10,9 @@ const DashboardLayout = () => {
     const { setDashboard, user } = useContext(AuthContext);
     const [role, roleLoading] = useRole(user?.email);
 
+    //----------------------------
+    // enabling menu button for dash board
+    //----------------------------
     useEffect(() => {
         setDashboard(true);
     }, [])

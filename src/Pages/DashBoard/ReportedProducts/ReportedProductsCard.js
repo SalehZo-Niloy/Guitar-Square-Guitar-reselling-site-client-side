@@ -6,15 +6,21 @@ import Loading from '../../Shared/Loading/Loading';
 const ReportedProductsCard = ({ product, refetch }) => {
     const { _id, productId, reporterEmail } = product;
 
+    //----------------------------
+    // fetching product details for each specific reported products by id
+    //----------------------------
     const { data: fetchedProduct = [], isLoading } = useQuery({
         queryKey: ['fetchedProducts', productId, reporterEmail, _id],
-        queryFn: () => fetch(`http://localhost:5000/product/${productId}`)
+        queryFn: () => fetch(`https://assignment-12-server-two.vercel.app/product/${productId}`)
             .then(res => res.json())
     })
 
+    //----------------------------
+    // deleting a reported product
+    //----------------------------
     const handleDelete = () => {
-        console.log(productId);
-        fetch(`http://localhost:5000/report/${productId}`, {
+        // console.log(productId);
+        fetch(`https://assignment-12-server-two.vercel.app/report/${productId}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -37,12 +43,16 @@ const ReportedProductsCard = ({ product, refetch }) => {
         return <Loading></Loading>
     }
 
+    if (fetchedProduct.message === 'Product Sold') {
+        return;
+    }
+
     // console.log(fetchedProduct);
 
     return (
         <div className="card md:card-side bg-neutral shadow-xl">
             <figure className='w-full md:w-1/4'><img src={fetchedProduct?.productPhoto
-            } alt="" /></figure>
+            } alt="" className='w-full h-full' /></figure>
             <div className="card-body">
                 <h2 className="card-title">Product Name: <strong>{fetchedProduct?.productName}</strong></h2>
                 <p className='text-white '>Price: <strong>${fetchedProduct?.resalePrice}</strong></p>

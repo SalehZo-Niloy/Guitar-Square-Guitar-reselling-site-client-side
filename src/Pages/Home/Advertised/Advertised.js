@@ -7,7 +7,7 @@ const Advertised = () => {
 
     const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ['advertisedProducts'],
-        queryFn: () => fetch(`http://localhost:5000/advertise`, {
+        queryFn: () => fetch(`https://assignment-12-server-two.vercel.app/advertise`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -26,7 +26,7 @@ const Advertised = () => {
     // console.log(products);
 
     return (
-        <div className='w-11/12 mx-auto my-12 bg-neutral px-10 py-6 rounded-xl'>
+        <div className='w-full md:w-11/12 mx-auto my-12 bg-neutral px-10 py-6 rounded-none md:rounded-xl'>
             <h1 className='text-2xl font-semibold text-primary text-center'>Advertised Products</h1>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 my-6'>
                 {

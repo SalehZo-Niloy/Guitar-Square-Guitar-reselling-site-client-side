@@ -8,8 +8,11 @@ const ProductCategories = () => {
     const [categories, setCategories] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    //----------------------------
+    // using axios to fetch category data
+    //----------------------------
     useEffect(() => {
-        axios('http://localhost:5000/categories')
+        axios('https://assignment-12-server-two.vercel.app/categories')
             .then(res => {
                 // console.log(res.data);
                 setCategories(res.data);

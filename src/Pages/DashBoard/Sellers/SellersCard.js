@@ -4,9 +4,12 @@ import toast from 'react-hot-toast';
 const SellersCard = ({ seller, refetch }) => {
     const { name, email, isVerified } = seller;
 
+    //----------------------------
+    // verifying a seller
+    //----------------------------
     const handleVerify = () => {
-        console.log(email);
-        fetch(`http://localhost:5000/user?email=${email}`, {
+        // console.log(email);
+        fetch(`https://assignment-12-server-two.vercel.app/user?email=${email}`, {
             method: 'PATCH',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -21,12 +24,16 @@ const SellersCard = ({ seller, refetch }) => {
                 }
             })
             .catch(e => {
-                console.log(e);
+                console.error(e);
             })
     }
+
+    //----------------------------
+    // deleting a seller
+    //----------------------------
     const handleDelete = () => {
-        console.log(email);
-        fetch(`http://localhost:5000/user?email=${email}`, {
+        // console.log(email);
+        fetch(`https://assignment-12-server-two.vercel.app/user?email=${email}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -41,7 +48,7 @@ const SellersCard = ({ seller, refetch }) => {
                 }
             })
             .catch(e => {
-                console.log(e);
+                console.error(e);
             })
     }
 

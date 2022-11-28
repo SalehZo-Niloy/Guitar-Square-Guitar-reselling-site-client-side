@@ -2,6 +2,7 @@ import React from 'react';
 
 const MyProductCard = ({ product, handleDelete, handleAdvertise }) => {
     const { _id, productName, isSold, isAdvertised, resalePrice } = product;
+
     return (
         <div className="card w-full bg-neutral text-primary-content">
             <div className="card-body">

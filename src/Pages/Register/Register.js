@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 import { jwtToken } from '../../utilities/jwtToken';
 
 const Register = () => {
@@ -10,6 +11,7 @@ const Register = () => {
     const [registerError, setRegisterError] = useState('');
     const location = useLocation();
     const navigate = useNavigate();
+    useTitle('Register');
 
     const from = location?.state?.from?.pathname || '/'
 
@@ -17,6 +19,10 @@ const Register = () => {
     const handleRegister = (data, e) => {
         // console.log(data);
         const { name, email, password, role } = data;
+
+        //----------------------------
+        // signing up new user
+        //----------------------------
         signup(email, password)
             .then(result => {
                 const user = result.user;
@@ -24,6 +30,10 @@ const Register = () => {
                 const userInfo = {
                     displayName: name
                 }
+
+                //----------------------------
+                // adding displayName only
+                //----------------------------
                 profileUpdater(userInfo)
                     .then(() => {
                         setRegisterError('');
@@ -50,6 +60,9 @@ const Register = () => {
             })
     };
 
+    //----------------------------
+    // react hook form reset
+    //----------------------------
     useEffect(() => {
         reset({
             name: '',
@@ -58,8 +71,11 @@ const Register = () => {
         })
     }, [isSubmitSuccessful, reset])
 
+    //----------------------------
+    // inserting user info to database
+    //----------------------------
     const addUser = (userInfo) => {
-        fetch('http://localhost:5000/user', {
+        fetch('https://assignment-12-server-two.vercel.app/user', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

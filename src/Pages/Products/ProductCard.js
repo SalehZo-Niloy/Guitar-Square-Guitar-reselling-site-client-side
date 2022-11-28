@@ -9,19 +9,27 @@ const ProductCard = ({ product, setProductModal, role }) => {
     const { _id, productName, productPhoto, location, resalePrice, originalPrice, purchaseYear, postedAt, sellerEmail } = product;
     const { user } = useContext(AuthContext);
 
+    //----------------------------
+    // loading products seller info by mail
+    //----------------------------
     const { data: seller = {}, isLoading } = useQuery({
         queryKey: ['user', sellerEmail],
-        queryFn: () => fetch(`http://localhost:5000/user?email=${sellerEmail}`)
+        queryFn: () => fetch(`https://assignment-12-server-two.vercel.app/user?email=${sellerEmail}`)
             .then(res => res.json())
     })
 
-
+    //----------------------------
+    // formatting the purchase date
+    //----------------------------
     const date = purchaseYear.split('-')[2];
     const month = purchaseYear.split('-')[1];
     const year = purchaseYear.split('-')[0];
     const postDate = new Date(postedAt);
     const formattedDate = `${postDate.getDate()}-${postDate.getMonth()}-${postDate.getFullYear()}`;
 
+    //----------------------------
+    // user other than buyer can't book product by opening modal
+    //----------------------------
     const handleModalLoad = () => {
         if (role !== 'buyer') {
             return toast.error("You can't book the product as you are not a 'BUYER'!!");
@@ -29,12 +37,15 @@ const ProductCard = ({ product, setProductModal, role }) => {
         setProductModal({ _id, productName, resalePrice })
     }
 
+    //----------------------------
+    // reporting a product
+    //----------------------------
     const handleReport = () => {
         const reportedProduct = {
             productId: _id,
             reporterEmail: user?.email
         }
-        fetch('http://localhost:5000/report', {
+        fetch('https://assignment-12-server-two.vercel.app/report', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -63,7 +74,7 @@ const ProductCard = ({ product, setProductModal, role }) => {
     return (
         <div className="card bg-neutral shadow-xl">
             <figure className="px-10 pt-10">
-                <img src={productPhoto} alt="" className="rounded-xl" />
+                <img src={productPhoto} alt="" className="rounded-xl w-full" />
             </figure>
             <div className="card-body">
                 <h2 className="card-title text-primary text-2xl font-bold">{productName}</h2>

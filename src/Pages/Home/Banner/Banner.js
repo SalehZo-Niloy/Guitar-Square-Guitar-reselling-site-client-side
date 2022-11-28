@@ -2,8 +2,8 @@ import React from 'react';
 
 const Banner = () => {
     return (
-        <div className='w-11/12 mx-auto my-12'>
-            <div className="hero rounded-lg overflow-hidden h-56 md:h-64 lg:h-96" style={{ backgroundImage: `url("https://i.ibb.co/zRZT6w5/classic-shape-wooden-electric-guitar-with-rosewood-neck-151013-40769.jpg")` }}>
+        <div className='w-full md:w-11/12 mx-auto my-0 md:my-12'>
+            <div className="hero rounded-none md:rounded-lg overflow-hidden h-56 md:h-72 lg:h-96" style={{ backgroundImage: `url("https://i.ibb.co/zRZT6w5/classic-shape-wooden-electric-guitar-with-rosewood-neck-151013-40769.jpg")` }}>
                 <div className="hero-overlay bg-opacity-80 w-full"></div>
                 <div className="hero-content text-center text-neutral-content">
                     <div className="max-w-md">

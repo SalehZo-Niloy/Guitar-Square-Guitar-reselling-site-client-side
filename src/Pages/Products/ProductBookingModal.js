@@ -17,7 +17,11 @@ const ProductBookingModal = ({ productModal, setProductModal }) => {
             buyerPhone,
             meetingLocation
         }
-        fetch('http://localhost:5000/bookings', {
+
+        //----------------------------
+        // booking a product
+        //----------------------------
+        fetch('https://assignment-12-server-two.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

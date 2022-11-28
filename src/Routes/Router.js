@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
+import Blogs from "../Pages/Blogs/Blogs";
 import AddProduct from "../Pages/DashBoard/AddProduct/AddProduct";
 import Buyers from "../Pages/DashBoard/Buyers/Buyers";
 import DashBoard from "../Pages/DashBoard/DashBoard/DashBoard";
@@ -10,6 +11,7 @@ import ReportedProducts from "../Pages/DashBoard/ReportedProducts/ReportedProduc
 import Sellers from "../Pages/DashBoard/Sellers/Sellers";
 import Home from "../Pages/Home/Home/Home";
 import Login from "../Pages/Login/Login";
+import Page404 from "../Pages/Page404/Page404";
 import Payment from "../Pages/Payment/Payment";
 import Products from "../Pages/Products/Products";
 import Register from "../Pages/Register/Register";
@@ -34,6 +36,9 @@ const router = createBrowserRouter([
                 path: '/register', element: <Register></Register>
             },
             {
+                path: '/blogs', element: <Blogs></Blogs>
+            },
+            {
                 path: '/category/:id', element: <PrivateRoute><Products></Products></PrivateRoute>
             },
         ]
@@ -54,7 +59,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/payment/:id', element: <BuyerRoute><Payment></Payment></BuyerRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/product/${params.id}`)
+                loader: ({ params }) => fetch(`https://assignment-12-server-two.vercel.app/product/${params.id}`)
             },
             {
                 path: '/dashboard/sellers', element: <AdminRoute><Sellers></Sellers></AdminRoute>
@@ -66,6 +71,9 @@ const router = createBrowserRouter([
                 path: '/dashboard/report', element: <AdminRoute><ReportedProducts></ReportedProducts></AdminRoute>
             },
         ]
+    },
+    {
+        path: '*', element: <Page404></Page404>
     }
 ])
 

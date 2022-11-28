@@ -5,7 +5,7 @@ const AdvertisedCard = ({ product }) => {
     const { productPhoto, productName, categoryName, categoryId } = product;
     return (
         <div className="card card-compact bg-secondary shadow-xl overflow-hidden">
-            <figure><img src={productPhoto} alt="" /></figure>
+            <figure><img className='w-full' src={productPhoto} alt="" /></figure>
             <div className="card-body">
                 <h2 className="card-title text-black">{productName}
                 </h2>

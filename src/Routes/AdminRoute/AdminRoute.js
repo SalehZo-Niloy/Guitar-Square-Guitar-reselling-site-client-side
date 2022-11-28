@@ -9,6 +9,9 @@ const AdminRoute = ({ children }) => {
     const [role, roleLoading] = useRole(user?.email);
     const location = useLocation();
 
+    //----------------------------
+    // only admin can access this routes or user will be redirected to login page
+    //----------------------------
     if (roleLoading) {
         return <Loading></Loading>
     }

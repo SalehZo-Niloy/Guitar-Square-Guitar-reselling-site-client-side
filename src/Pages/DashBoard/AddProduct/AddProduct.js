@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../context/AuthProvider';
+import useTitle from '../../../hooks/useTitle';
 
 const AddProduct = () => {
     const { user } = useContext(AuthContext);
@@ -10,6 +11,7 @@ const AddProduct = () => {
     const [uploaded, setUploaded] = useState(false);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    useTitle('Add Products');
 
     const imgbb = process.env.REACT_APP_imgbb_key;
 
@@ -17,7 +19,11 @@ const AddProduct = () => {
         setLoading(true);
         // console.log(data);
         const { productName, productPhoto, location, category, condition, resalePrice, originalPrice, phone, description, purchaseYear, } = data;
-        fetch(`http://localhost:5000/categories?category=${category}`)
+
+        //----------------------------
+        // fetching specific category data
+        //----------------------------
+        fetch(`https://assignment-12-server-two.vercel.app/categories?category=${category}`)
             .then(res => res.json())
             .then(data => {
                 // console.log(data)
@@ -27,6 +33,10 @@ const AddProduct = () => {
                 // console.log(photo);
                 const formData = new FormData();
                 formData.append('image', photo);
+
+                //----------------------------
+                // uploading image in imgbb
+                //----------------------------
                 fetch(`https://api.imgbb.com/1/upload?key=${imgbb}`, {
                     method: 'POST',
                     body: formData
@@ -52,7 +62,10 @@ const AddProduct = () => {
                                 isAdvertised: false,
                                 isPaid: false
                             }
-                            fetch('http://localhost:5000/products', {
+                            //----------------------------
+                            // inserting products to database
+                            //----------------------------
+                            fetch('https://assignment-12-server-two.vercel.app/products', {
                                 method: 'POST',
                                 headers: {
                                     'content-type': 'application/json',
@@ -85,6 +98,9 @@ const AddProduct = () => {
             })
     }
 
+    //----------------------------
+    // react hook form reset 
+    //----------------------------
     useEffect(() => {
         reset({
             productName: '',

@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import useTitle from '../../../hooks/useTitle';
 import Loading from '../../Shared/Loading/Loading';
 import BuyersCard from './BuyersCard';
 
 const Buyers = () => {
+    useTitle('Buyers');
     const { data: buyers = [], isLoading, refetch } = useQuery({
         queryKey: ['buyers'],
-        queryFn: () => fetch(`http://localhost:5000/buyers`, {
+        queryFn: () => fetch(`https://assignment-12-server-two.vercel.app/buyers`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -30,7 +32,7 @@ const Buyers = () => {
                         refetch={refetch}
                         buyer={buyer}
                     ></BuyersCard>)
-                        : undefined
+                        : <p className='text-center col-span-3'>No Sellers to Load</p>
                 }
             </div>
         </div >

@@ -7,6 +7,9 @@ import Header from '../Pages/Shared/Header/Header';
 const Main = () => {
     const { setDashboard } = useContext(AuthContext);
 
+    //----------------------------
+    // disabling dashboard menu for main layout
+    //----------------------------
     useEffect(() => {
         setDashboard(false);
     }, [])

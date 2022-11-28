@@ -8,6 +8,10 @@ const DashBoard = () => {
     const { user } = useContext(AuthContext);
     const [role, roleLoading] = useRole(user?.email);
     // console.log(role, user.email);
+
+    //----------------------------
+    // this dashboard component routes user to specific dashboard routes base on there role by using useRole hook
+    //----------------------------
     if (roleLoading) {
         return <Loading></Loading>
     }

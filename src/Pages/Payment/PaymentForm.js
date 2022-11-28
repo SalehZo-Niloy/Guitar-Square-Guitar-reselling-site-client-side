@@ -15,7 +15,7 @@ const PaymentForm = ({ product }) => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://assignment-12-server-two.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -45,6 +45,9 @@ const PaymentForm = ({ product }) => {
             return;
         }
 
+        //----------------------------
+        // creating payment method
+        //----------------------------
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card,
@@ -60,6 +63,10 @@ const PaymentForm = ({ product }) => {
 
         setSuccess('');
         setProcessing(true);
+
+        //----------------------------
+        // confirming payment
+        //----------------------------
         const { paymentIntent, error: paymentConfirmError } = await stripe.confirmCardPayment(
             clientSecret,
             {
@@ -88,7 +95,11 @@ const PaymentForm = ({ product }) => {
                 productId: product?._id,
                 productName: product?.productName
             }
-            fetch('http://localhost:5000/payment', {
+
+            //----------------------------
+            // inserting payment info to database
+            //----------------------------
+            fetch('https://assignment-12-server-two.vercel.app/payment', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
@@ -98,7 +109,7 @@ const PaymentForm = ({ product }) => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     if (data.insertedId) {
                         setSuccess('Congratulations! your payment done');
                         toast.success('Congratulations! your payment done');

@@ -17,6 +17,7 @@ const Header = () => {
 
     const menu = <>
         <li className='text-secondary'><Link to='/home' className='text-lg font-semibold'>Home</Link></li>
+        <li className='text-secondary'><Link to='/blogs' className='text-lg font-semibold'>Blogs</Link></li>
         {
             user?.email && <li className='text-secondary'><Link to='/dashboard' className='text-lg font-semibold'>Dashboard</Link></li>
         }
@@ -33,7 +34,7 @@ const Header = () => {
 
     return (
         <div className="navbar bg-base-300">
-            <div className="navbar-start w-3/5">
+            <div className="navbar-start w-1/2">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
@@ -44,13 +45,13 @@ const Header = () => {
                 </div>
                 <Link to='/' className="uppercase text-base md:text-xl lg:text-2xl text-primary font-bold w-full">Guitar Square</Link>
             </div>
-            <div className="navbar-center hidden lg:flex justify-end w-2/5">
+            <div className="navbar-center hidden lg:flex justify-end w-1/2">
                 <ul className="menu menu-horizontal p-0">
                     {menu}
                 </ul>
             </div>
             {
-                user?.email && dashboard && <div className='flex justify-end items-center w-2/5 lg:hidden'>
+                user?.email && dashboard && <div className='flex justify-end items-center w-1/2 lg:hidden'>
                     <label htmlFor="dashboard-drawer" className="text-secondary font-semibold ">Dashboard Menu</label>
                 </div>
             }

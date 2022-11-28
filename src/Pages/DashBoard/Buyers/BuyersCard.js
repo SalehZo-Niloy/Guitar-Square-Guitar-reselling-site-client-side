@@ -6,7 +6,7 @@ const BuyersCard = ({ buyer, refetch }) => {
 
     const handleDelete = () => {
         console.log(email);
-        fetch(`http://localhost:5000/user?email=${email}`, {
+        fetch(`https://assignment-12-server-two.vercel.app/user?email=${email}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`

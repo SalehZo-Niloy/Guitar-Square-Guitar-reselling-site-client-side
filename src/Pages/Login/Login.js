@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 import { jwtToken } from '../../utilities/jwtToken';
 
 const Login = () => {
@@ -11,6 +12,7 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm();
     const location = useLocation();
     const navigate = useNavigate();
+    useTitle('Login');
 
     const from = location?.state?.from?.pathname || '/';
     const previousLocation = location?.state?.from;
@@ -18,11 +20,18 @@ const Login = () => {
     const handleLogin = (data, e) => {
         // console.log(data);
         const { email, password } = data;
-        fetch(`http://localhost:5000/user?email=${email.toLowerCase()}`)
+
+        //----------------------------
+        // checking if user is deleted by admin
+        //----------------------------
+        fetch(`https://assignment-12-server-two.vercel.app/user?email=${email.toLowerCase()}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 if (!data.isDeleted) {
+                    //----------------------------
+                    // logging in the user if he isn't deleted
+                    //----------------------------
                     login(email, password)
                         .then(result => {
                             const user = result.user;
@@ -43,9 +52,13 @@ const Login = () => {
             })
             .catch(e => {
                 console.error(e);
+                setLoginError('user does not exist');
             })
     };
 
+    //----------------------------
+    // react hook form reset
+    //----------------------------
     useEffect(() => {
         reset({
             email: '',
@@ -58,10 +71,14 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 // console.log(user);
-                fetch(`http://localhost:5000/user?email=${user?.email}`)
+
+                //----------------------------
+                // if the user logged in by google is deleted by admin, logging him out immediately by else statement
+                //----------------------------
+                fetch(`https://assignment-12-server-two.vercel.app/user?email=${user?.email}`)
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
+                        // console.log(data);
                         if (!data.isDeleted) {
                             setLoginError('')
                             toast.success('Login By Google Successful');
@@ -91,7 +108,7 @@ const Login = () => {
     }
 
     const addUser = (userInfo) => {
-        fetch('http://localhost:5000/user', {
+        fetch('https://assignment-12-server-two.vercel.app/user', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

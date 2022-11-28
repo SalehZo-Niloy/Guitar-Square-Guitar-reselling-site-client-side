@@ -2,14 +2,16 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../context/AuthProvider';
+import useTitle from '../../../hooks/useTitle';
 import Loading from '../../Shared/Loading/Loading';
 import MyProductCard from './MyProductCard';
 
 const MyProducts = () => {
     const { user } = useContext(AuthContext);
+    useTitle('My Products');
     const { data: myProducts = [], isLoading, refetch } = useQuery({
         queryKey: ['myProducts', user],
-        queryFn: () => fetch(`http://localhost:5000/products?email=${user?.email}`, {
+        queryFn: () => fetch(`https://assignment-12-server-two.vercel.app/products?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -17,8 +19,11 @@ const MyProducts = () => {
             .then(res => res.json())
     })
 
+    //----------------------------
+    // deleting a product
+    //----------------------------
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/products/${id}`, {
+        fetch(`https://assignment-12-server-two.vercel.app/products/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
@@ -37,8 +42,11 @@ const MyProducts = () => {
             })
     }
 
+    //----------------------------
+    // advertising a product
+    //----------------------------
     const handleAdvertise = (id, state) => {
-        fetch(`http://localhost:5000/advertise/${id}`, {
+        fetch(`https://assignment-12-server-two.vercel.app/advertise/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
@@ -81,7 +89,7 @@ const MyProducts = () => {
                         handleAdvertise={handleAdvertise}
                     // handleRemoveAdvertise={handleRemoveAdvertise}
                     ></MyProductCard>)
-                        : undefined
+                        : <p className='text-center col-span-3'>No Products to Load</p>
                 }
             </div>
         </div>

@@ -4,8 +4,11 @@ const useRole = email => {
     const [role, setRole] = useState('');
     const [roleLoading, setRoleLoading] = useState(true);
 
+    //----------------------------
+    // useEffect sends currently logged in user email to check the role
+    //----------------------------
     useEffect(() => {
-        fetch(`http://localhost:5000/user/role/${email}`, {
+        fetch(`https://assignment-12-server-two.vercel.app/user/role/${email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('token')}`
             }

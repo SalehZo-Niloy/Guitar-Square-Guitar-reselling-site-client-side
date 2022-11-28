@@ -6,14 +6,21 @@ import Loading from '../../Shared/Loading/Loading';
 const MyOrdersCard = ({ order }) => {
     const { productId } = order;
 
+    //----------------------------
+    // fetching specific product details for each card
+    //----------------------------
     const { data: product = {}, isLoading } = useQuery({
         queryKey: ['orderedProducts', productId],
-        queryFn: () => fetch(`http://localhost:5000/specificProduct/${productId}`)
+        queryFn: () => fetch(`https://assignment-12-server-two.vercel.app/specificProduct/${productId}`)
             .then(res => res.json())
     })
 
     if (isLoading) {
         return <Loading></Loading>
+    }
+
+    if (Object.keys(product).length === 0) {
+        return;
     }
 
     return (
